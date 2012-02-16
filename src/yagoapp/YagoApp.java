@@ -41,18 +41,25 @@ public class YagoApp {
         return returnValue;
     } // prefix
     
+    public static String extractFormatString (String query) {
+        String str = query.substring("SELECT DISTINCT * WHERE { ".length());
+        str = str.replaceAll("}", "");
+        return str;
+    } // extractFormatString
+    
     public static void printResults (String query) {
+        
+        out.println(String.format("Query: %s", query));
         Iterable<Map<String, RDFNode>> result1 = sparql.query(query, 20);
         
         out.println("Results:");
         for (Map<String, RDFNode> row : result1) {
-            String rowLine = "" +  ep1 + " ";
+            String rowLine = extractFormatString(query);
             for (String key : row.keySet()) {
-                //rowLine += String.format("%s %s %s", key, sanitize(row.get(key).toString()), sanitize(row.get(key).asResource().getLocalName()));
-                //out.println(String.format("%25s %25s %25s", ep1, sanitize(row.get(key).toString()), ep2));
-                rowLine += String.format("(%s = %s)", key, sanitize(row.get(key).toString()));
+                rowLine = rowLine.replaceAll("\\?" + key, sanitize(row.get(key).toString()));
+                //rowLine += String.format("(%s = %s)", key, sanitize(row.get(key).toString()));
             } //for
-            rowLine += " " + ep2;
+            //rowLine += " " + ep2;
             out.println(rowLine);
         } // for
     } // printResults
