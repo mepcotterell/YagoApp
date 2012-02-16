@@ -1,0 +1,4 @@
+YagoApp
+
+This small application displays the semantic relationships (up to three hops)
+between two endpoints in the YAGO2 data set.
