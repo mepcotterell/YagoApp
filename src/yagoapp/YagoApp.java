@@ -50,7 +50,7 @@ public class YagoApp {
             for (String key : row.keySet()) {
                 //rowLine += String.format("%s %s %s", key, sanitize(row.get(key).toString()), sanitize(row.get(key).asResource().getLocalName()));
                 //out.println(String.format("%25s %25s %25s", ep1, sanitize(row.get(key).toString()), ep2));
-                rowLine += "( " + row.get(key) + ") ds";
+                rowLine += String.format("(%s = %s)", key, sanitize(row.get(key).toString()));
             } //for
             rowLine += " " + ep2;
             out.println(rowLine);
