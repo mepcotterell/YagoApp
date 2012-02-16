@@ -27,7 +27,7 @@ public class YagoApp {
    
     static final Map<String, String> prefixMap = new HashMap<String, String>() {
         {
-            put ("http://yago-knowledge.org/resource/", "yago:");
+            put ("http://yago-knowledge.org/resource/", ":");
         }
     };
     
@@ -91,7 +91,18 @@ public class YagoApp {
        
         query = String.format("SELECT DISTINCT * WHERE { %s ?p1 ?o2 . ?o2 ?p2 ?o3 . ?o3 ?p3 %s . }", ep1, ep2);
         printResults(query);
+        
+        out.println();
+        out.println("Querying for four-hop relationships...");
        
+        query = String.format("SELECT DISTINCT * WHERE { %s ?p1 ?o2 . ?o2 ?p2 ?o3 . ?o3 ?p3 ?o4 . ?o4 ?p4 %s . }", ep1, ep2);
+        printResults(query);
+       
+        out.println();
+        out.println("Querying for five-hop relationships...");
+       
+        query = String.format("SELECT DISTINCT * WHERE { %s ?p1 ?o2 . ?o2 ?p2 ?o3 . ?o3 ?p3 ?o4 . ?o4 ?p4 ?o5 . ?o5 ?p5 %s . }", ep1, ep2);
+        printResults(query);
     
     } // main
     
