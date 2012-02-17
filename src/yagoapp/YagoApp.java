@@ -31,6 +31,12 @@ public class YagoApp {
         }
     };
     
+    /**
+     * Sanitizes SPARQL endpoints in order to replace full URI prefixes with
+     * short prefixes.
+     * @param str
+     * @return 
+     */
     public static String sanitize (String str) {
         String returnValue = str;
         for (String key : prefixMap.keySet()) {
@@ -41,12 +47,22 @@ public class YagoApp {
         return returnValue;
     } // prefix
     
+    /**
+     * Returns the format string for a SELECT * query in SPARQL.
+     * This naive approach creates the format string from the WHERE clause.
+     * @param query
+     * @return 
+     */
     public static String extractFormatString (String query) {
         String str = query.substring("SELECT DISTINCT * WHERE { ".length());
         str = str.replaceAll("}", "");
         return str;
     } // extractFormatString
     
+    /**
+     * Prints the results of the SPARQL query.
+     * @param query 
+     */
     public static void printResults (String query) {
         
         out.println(String.format("Query: %s", query));
