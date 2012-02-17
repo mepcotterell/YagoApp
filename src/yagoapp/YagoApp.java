@@ -1,26 +1,29 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package yagoapp;
 
 import com.hp.hpl.jena.rdf.model.RDFNode;
+import converters.SPARQLprocessor;
+import java.io.FileInputStream;
+import java.io.IOException;
+
 import static java.lang.System.in;
 import static java.lang.System.out;
 
-import converters.SPARQLprocessor;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author mepcotterell
  */
 public class YagoApp {
-
-    public static final SPARQLprocessor sparql = new SPARQLprocessor("/home/mepcotterell/Desktop/ais/yago2core_jena_20120109");
-    public static final Scanner kb = new Scanner(in);
+  
+    public static Properties      props  = new Properties();
+    public static SPARQLprocessor sparql = null;
+    public static Scanner         kb     = new Scanner(in);
     
     public static String ep1 = "";
     public static String ep2 = "";
@@ -81,6 +84,15 @@ public class YagoApp {
     } // printResults
     
     public static void main(String[] args) {
+        
+        try {
+            FileInputStream fis = new FileInputStream("src/yagoapp/YagoApp.properties");
+            props.load(fis);
+            sparql = new SPARQLprocessor(props.getProperty("jenaTDBdirectory"));
+        } catch (IOException ex) {
+            Logger.getLogger(YagoApp.class.getName()).log(Level.SEVERE, null, ex);
+            System.exit(1);
+        } // try
         
         String query = "";
         
