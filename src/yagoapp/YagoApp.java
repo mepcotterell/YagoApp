@@ -31,6 +31,8 @@ public class YagoApp {
     static final Map<String, String> prefixMap = new HashMap<String, String>() {
         {
             put ("http://yago-knowledge.org/resource/", ":");
+            put ("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "rdf:");
+            put ("http://www.w3.org/2000/01/rdf-schema#", "rdfs:");
         }
     };
     
